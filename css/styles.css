@@ -1,0 +1,124 @@
+body {
+  font-family: "Ubuntu";
+  background: linear-gradient(217deg, #ff8a59, #84f4c9);
+}
+h1 {
+  text-align: center;
+  margin-bottom: 0;
+  font-size: 75px;
+  color: #494949;
+}
+h2 {
+  margin-bottom: 0;
+}
+h3 {
+  margin: 0;
+}
+p {
+  margin: 0;
+}
+li {
+  text-align: center;
+}
+#pokemon-modal-container {
+  display: none;
+}
+#pokemon-modal-container.is-visible {
+  position: fixed;
+  padding: 20px;
+  box-sizing: border-box;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 999;
+  overflow: auto;
+  display: grid;
+  text-align: center;
+}
+.pokemon-modal {
+  margin: auto;
+  display: inline-block;
+  box-sizing: border-box;
+  background: #fff;
+  padding: 15px;
+  width: 100%;
+  max-width: 700px;
+  text-align: center;
+  background-color: #494949;
+  border-radius: 10px;
+  color: #f7eee8;
+}
+.pokemon-modal-close {
+  float: right;
+  -webkit-appearance: none;
+  border: 0;
+  background: none;
+  color: #ff8a59;
+  text-decoration: underline;
+  font-weight: 700;
+}
+button.pokemon-modal-close:hover {
+  text-decoration: none;
+}
+.pokemon-modal h2 {
+  font-size: 50px;
+  margin-top: 0;
+}
+.pokemon-img {
+  max-width: 100px;
+  min-width: 80%;
+}
+.pokemon-modal img {
+  display: block;
+  margin: 0 auto;
+}
+/*pokemon info grid*/
+.pokemon-grid {
+  display: grid;
+  grid-template-colums: 1fr 1fr;
+  grid-gap: 50px;
+}
+.pokemon-grid_item:first-child {
+  grid-column: 1/1;
+  grid-row: 1/1;
+}
+.pokemon-grid_item:nth-child(2n) {
+  grid-column: 2/2;
+  grid-row: 1/1;
+}
+.pokemon-grid_item:nth-child(3n) {
+  grid-column: 1/1;
+  grid-row: 2/2;
+}
+.pokemon-grid_item:nth-child(4n) {
+  grid-column: 2/2;
+  grid-row: 2/2;
+}
+.pokemon-grid_item:nth-child(5n) {
+  grid-column: 1/1;
+  grid-row: 3/3;
+}
+.pokemon-grid_item:last-child {
+  grid-column: 2/2;
+  grid-row: 3/3;
+}
+
+.pokemon-list {
+  list-style: none;
+  padding: 20px;
+  margin: 0;
+}
+.pokemon-button {
+  font-family: "Ubuntu";
+  background-color: #06303d;
+  color: #f7eee8;
+  border: none;
+  text-align: center;
+  font-size: 40px;
+  width: 80%;
+  min-width: 250px;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
