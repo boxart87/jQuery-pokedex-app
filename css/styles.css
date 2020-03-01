@@ -2,11 +2,10 @@ body {
   font-family: "Ubuntu";
   background: linear-gradient(217deg, #ff8a59, #84f4c9);
 }
-h1 {
+h1.navbar-brand {
   text-align: center;
   margin-bottom: 0;
   font-size: 75px;
-  color: #494949;
 }
 h2 {
   margin-bottom: 0;
@@ -71,8 +70,7 @@ button.pokemon-modal-close:hover {
   min-width: 80%;
 }
 .pokemon-modal img {
-  display: block;
-  margin: 0 auto;
+  margin: -25% auto;
 }
 /*pokemon info grid*/
 .pokemon-grid {
@@ -108,7 +106,7 @@ button.pokemon-modal-close:hover {
 .pokemon-list {
   list-style: none;
   padding: 20px;
-  margin: 0;
+  margin: 0 auto;
 }
 .pokemon-button {
   font-family: "Ubuntu";
@@ -117,8 +115,23 @@ button.pokemon-modal-close:hover {
   border: none;
   text-align: center;
   font-size: 40px;
-  width: 80%;
-  min-width: 250px;
-  border-radius: 10px;
-  margin-bottom: 20px;
+}
+nav.navbar {
+  background-color: #06303d;
+}
+.list-group-item {
+  border: none;
+  background: none;
+}
+.btn-outline-info {
+  color: #ff8a59;
+  border-color: #ff8a59;
+}
+.btn-outline-info:hover {
+  color: #06303d;
+  background-color: #ff8a59;
+  border-color: #ff8a59;
+}
+.pokemon-button:hover {
+  color: #ff8a59;
 }

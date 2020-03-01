@@ -13,8 +13,8 @@ var pokemonRepository = (function () {
     }
 
     function addListItem(pokemon) {
-        var listItem = $('<li></li>');
-        var button = $('<button></button>').addClass('pokemon-button').text(pokemon.name);
+        var listItem = $('<li></li>').addClass('list-group-item');
+        var button = $('<button type="button" data-toggle="modal" data-target="#modal"></button>').addClass('pokemon-button btn btn-lg btn-block').text(pokemon.name);
         listItem.append(button);
         $pokemonList.append(listItem);
         button.on('click', function () {
@@ -53,9 +53,9 @@ var pokemonRepository = (function () {
             item.weight = details.weight;
             //item.types = details.types.forEach.type.name;
             if (details.types.length === 2) {
-                item.types = [details.types[1].type.name] + ' / ' + [details.types[0].type.name];
+                item.types = [details.types[1].type.name.charAt(0).toUpperCase() + details.types[1].type.name.slice(1)] + ' / ' + [details.types[0].type.name.charAt(0).toUpperCase() + details.types[0].type.name.slice(1)];
             } else {
-                item.types = [details.types[0].type.name];
+                item.types = [details.types[0].type.name.charAt(0).toUpperCase() + details.types[0].type.name.slice(1)];
             }
 
         }).catch(function (e) {
@@ -68,60 +68,147 @@ var pokemonRepository = (function () {
         //clear existing modal content
         $pokemonModalContainer.innerHTML = '';
 
-        var pokemonModal = $('<div></div>').addClass('pokemon-modal');
+        //start bootstrap modal code
+        //var $modal = $('<div tabindex="-1" id="modal" role="dialog" aria-hidden="true"></div>').addClass('modal fade');
+        var $modalDialog = $('<div role="document"></div>').addClass('modal-dialog');
+        var $modalContent = $('<div></div>').addClass('modal-content');
+
+        //modal header
+        var $modalHeader = $('<div></div>').addClass('modal-header');
+        var $modalTitle = $('<h2></h2>').addClass('modal-title').text(item.name);
+        var $modalClose = $('<button type="button" data-dismiss="modal" aria-label="Close"></button>').addClass('close').text('close').on('click', hideModal);
+        var $modalImage = $('<img src=' + item.imageUrl + '>').addClass('pokemon-img');
+
+        //modal body
+        var $modalBody = $('<div></div>').addClass('modal-body');
+
+        //adds a wrapper to pokemon info so i can organize it into a grid
+        var pokemonGrid = $('<div></div>').addClass('container');
+
+        //adds row for pokemon type
+        var pokemonGridTypeRow = $('<div></div').addClass('row');
+
+        //adds grid item for pokemon type
+        var pokemonType = $('<h3></h3>').addClass('col').text('Type(s)');
+        var pokemonTypeInfo = $('<p></p>').addClass('col').text(item.types);
+
+        //adds row for pokemon height
+        var pokemonGridHeightRow = $('<div></div').addClass('row');
+
+        //adds grid item for pokemon height
+        var pokemonHeight = $('<h3></h3>').addClass('col').text('Height');
+        var pokemonHeightInfo = $('<p></p>').addClass('col').text(item.height + 'm');
+
+        //adds row for pokemon weight
+        var pokemonGridWeightRow = $('<div></div').addClass('row');
+
+        //adds grid item for pokemon weight
+        var pokemonWeight = $('<h3></h3>').addClass('col').text('Weight');
+        var pokemonWeightInfo = $('<p></p>').addClass('col').text(item.weight + 'kg');
+
+        //appends modal header
+        $modalHeader.append($modalTitle);
+        $modalHeader.append($modalClose);
+        $modalHeader.append($modalImage);
+        $modalContent.append($modalHeader);
+
+        //appends grid items
+        pokemonGridTypeRow.append(pokemonType);
+        pokemonGridTypeRow.append(pokemonTypeInfo);
+        pokemonGridHeightRow.append(pokemonHeight);
+        pokemonGridHeightRow.append(pokemonHeightInfo);
+        pokemonGridWeightRow.append(pokemonWeight);
+        pokemonGridWeightRow.append(pokemonWeightInfo);
+
+        //appends pokemon grid rows
+        pokemonGrid.append(pokemonGridTypeRow);
+        pokemonGrid.append(pokemonGridHeightRow);
+        pokemonGrid.append(pokemonGridWeightRow);
+
+        //appends modal body
+        $modalBody.append(pokemonGrid);
+
+        //append modal content
+        $modalContent.append($modalBody);
+
+        //append modal dialog
+        $modalDialog.append($modalContent);
+
+        //append modal container
+        $pokemonModalContainer.append($modalDialog);
+
+        $pokemonModalContainer.addClass('is-visible');
+
+
+        //commented out for now as it function fine with the code below. still trying to get the above code to funtion.
+
+        //clear existing modal content
+        //$pokemonModalContainer.innerHTML = '';
+        //var pokemonModal = $('<div></div>').addClass('pokemon-modal');
 
         //this adds new content for the modal
 
         //adds close button
-        var pokemonCloseButtonElement = $('<button></button>').addClass('pokemon-modal-close').text('Close');
-        pokemonCloseButtonElement.on('click', hideModal);
+        //var pokemonCloseButtonElement = $('<button></button>').addClass('pokemon-modal-close ').text('Close');
+        //pokemonCloseButtonElement.on('click', hideModal);
 
         //adds a header displaying the pokemon name
-        var pokemonName = $('<h2></h2>').text(item.name);
+        //var pokemonName = $('<h2></h2>').text(item.name);
 
         //adds an image of the pokemon
-        var pokemonImage = $('<img src=' + item.imageUrl + '>').addClass('pokemon-img');
+        //var pokemonImage = $('<img src=' + item.imageUrl + '>').addClass('pokemon-img');
 
 
         //adds a wrapper to pokemon info so i can organize it into a grid
-        var pokemonGrid = $('<div></div>').addClass('pokemon-grid');
+        //var pokemonGrid = $('<div></div>').addClass('container');
+
+        //var pokemonGridTypeRow = $('<div></div').addClass('row');
 
         //adds grid item h2 for pokemon type
-        var pokemonType = $('<h3></h3>').addClass('pokemon-grid_item').text('Type(s)');
+        //var pokemonType = $('<h3></h3>').addClass('col').text('Type(s)');
 
         //adds grid item p for pokemon type info
-        var pokemonTypeInfo = $('<p></p>').addClass('pokemon-grid_item').text(item.types);
+        //var pokemonTypeInfo = $('<p></p>').addClass('col').text(item.types);
+
+        //var pokemonGridHeightRow = $('<div></div').addClass('row');
 
         //adds grid item h2 for pokemon height
-        var pokemonHeight = $('<h3></h3>').addClass('pokemon-grid_item').text('Height');
+        //var pokemonHeight = $('<h3></h3>').addClass('col').text('Height');
 
         //adds grid item p for pokemon height info
-        var pokemonHeightInfo = $('<p></p>').addClass('pokemon-grid_item').text(item.height + 'm');
+        //var pokemonHeightInfo = $('<p></p>').addClass('col').text(item.height + 'm');
+
+        //var pokemonGridWeightRow = $('<div></div').addClass('row');
 
         //adds grid item h2 for pokemon weight
-        var pokemonWeight = $('<h3></h3>').addClass('pokemon-grid_item').text('Weight');
+        //var pokemonWeight = $('<h3></h3>').addClass('col').text('Weight');
 
         //adds grid item p for pokemon weight info
-        var pokemonWeightInfo = $('<p></p>').addClass('pokemon-grid_item').text(item.weight + 'kg');
+        //var pokemonWeightInfo = $('<p></p>').addClass('col').text(item.weight + 'kg');
 
         //appends grid items
-        pokemonGrid.append(pokemonType);
-        pokemonGrid.append(pokemonTypeInfo);
-        pokemonGrid.append(pokemonHeight);
-        pokemonGrid.append(pokemonHeightInfo);
-        pokemonGrid.append(pokemonWeight);
-        pokemonGrid.append(pokemonWeightInfo);
+        //pokemonGridTypeRow.append(pokemonType);
+        //pokemonGridTypeRow.append(pokemonTypeInfo);
+        //pokemonGridHeightRow.append(pokemonHeight);
+        //pokemonGridHeightRow.append(pokemonHeightInfo);
+        //pokemonGridWeightRow.append(pokemonWeight);
+        //pokemonGridWeightRow.append(pokemonWeightInfo);
+
+        //appends grid rows
+        //pokemonGrid.append(pokemonGridTypeRow);
+        //pokemonGrid.append(pokemonGridHeightRow);
+        //pokemonGrid.append(pokemonGridWeightRow);
 
         //appends modal
-        pokemonModal.append(pokemonCloseButtonElement);
-        pokemonModal.append(pokemonName);
-        pokemonModal.append(pokemonImage);
-        pokemonModal.append(pokemonGrid);
+        //pokemonModal.append(pokemonCloseButtonElement);
+        //pokemonModal.append(pokemonName);
+        //pokemonModal.append(pokemonImage);
+        //pokemonModal.append(pokemonGrid);
 
         //appends modal container
-        $pokemonModalContainer.append(pokemonModal);
+        //$pokemonModalContainer.append(pokemonModal);
 
-        $pokemonModalContainer.addClass('is-visible');
+        //$pokemonModalContainer.addClass('is-visible');
     }
 
     //hide details only when clicking either outside modal or close button
@@ -136,11 +223,11 @@ var pokemonRepository = (function () {
     });
 
     $pokemonModalContainer.on('click', (e) => {
-        var target = e.target;
-        if (target === $pokemonModalContainer) {
+        var target = $(e.target);
+        if (target.is($pokemonModalContainer)) {
             hideModal();
         }
-    })
+    });
 
     return {
         add: add,
