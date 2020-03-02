@@ -43,7 +43,6 @@ li {
   background: #fff;
   padding: 15px;
   width: 100%;
-  max-width: 700px;
   text-align: center;
   background-color: #494949;
   border-radius: 10px;
@@ -70,7 +69,7 @@ button.pokemon-modal-close:hover {
   min-width: 80%;
 }
 .pokemon-modal img {
-  margin: -25% auto;
+  margin: 0 auto;
 }
 /*pokemon info grid*/
 .pokemon-grid {
@@ -132,6 +131,13 @@ nav.navbar {
   background-color: #ff8a59;
   border-color: #ff8a59;
 }
+.modal-content {
+  background-color: #494949;
+}
 .pokemon-button:hover {
   color: #ff8a59;
+}
+.close {
+  color: #ff8a59;
+  opacity: 100%;
 }
