@@ -140,43 +140,44 @@ var pokemonRepository = (function () {
 
         //make the modal container visible
         $pokemonModalContainer.addClass('is-visible');
+    };
 
-        //hide details only when clicking either outside modal or close button
-        function hideModal() {
-            $pokemonModalContainer.removeClass('is-visible');
+    //hide details only when clicking either outside modal or close button
+    function hideModal() {
+        $pokemonModalContainer.removeClass('is-visible');
+    }
+    //hide modal when pressing ecape key
+    $(window).on('keydown', (e) => {
+        if (e.key === 'Escape' && $pokemonModalContainer.hasClass('is-visible')) {
+            hideModal();
         }
-        //hide modal when pressing ecape key
-        $(window).on('keydown', (e) => {
-            if (e.key === 'Escape' && $pokemonModalContainer.hasClass('is-visible')) {
-                hideModal();
-            }
-        });
-        //hide modal when clicked outside of modal
-        $pokemonModalContainer.on('click', (e) => {
-            var target = $(e.target);
-            if (target.is($pokemonModalContainer)) {
-                hideModal();
-            }
-        });
-
-        //return all functions so they can be used outside of iife
-        return {
-            add: add,
-            getAll: getAll,
-            addListItem: addListItem,
-            showDetails: showDetails,
-            loadList: loadList,
-            loadDetails: loadDetails,
-            showModal: showModal,
-            hideModal: hideModal
-        };
-
-    }) ();
-
-
-    pokemonRepository.loadList().then(function () {
-        // Now the data is loaded!
-        pokemonRepository.getAll().forEach(function (pokemon) {
-            pokemonRepository.addListItem(pokemon);
-        });
     });
+    //hide modal when clicked outside of modal
+    $pokemonModalContainer.on('click', (e) => {
+        var target = $(e.target);
+        if (target.is($pokemonModalContainer)) {
+            hideModal();
+        }
+    });
+
+    //return all functions so they can be used outside of iife
+    return {
+        add: add,
+        getAll: getAll,
+        addListItem: addListItem,
+        showDetails: showDetails,
+        loadList: loadList,
+        loadDetails: loadDetails,
+        showModal: showModal,
+        hideModal: hideModal
+    };
+
+})();
+
+
+pokemonRepository.loadList().then(function () {
+    // Now the data is loaded!
+    pokemonRepository.getAll().forEach(function (pokemon) {
+        pokemonRepository.addListItem(pokemon);
+    });
+});
